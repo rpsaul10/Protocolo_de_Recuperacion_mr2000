@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Recuperación</title>
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header-container {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .nurse-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #display-phrase {
+            height: 80px;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #d1d1d1;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px;
+        }
+
+        button {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 15px 30px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 5px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:active {
+            background: #fff;
+            color: #000;
+            transform: scale(0.95);
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 0.7rem;
+            color: #555;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <span class="nurse-icon">🩺</span> <h1>SRTA. DEMENCIA // STATUS: AGOTADA</h1>
+    </div>
+
+    <div id="display-phrase">
+        Pulsa el botón para iniciar diagnóstico...
+    </div>
+
+    <button onclick="generarFrase()">Haz clic si me extrañas</button>
+
+    <div class="footer">
+        FFMPEG_RENDER_V.1.0 // SÁBADO PENDING
+    </div>
+
+    <script>
+        var count = 0;
+
+        var frases = [
+                "Lo sabía... esa mente de acero tiene sus debilidades. 😉",
+                "Cuidado, admitirlo es el primer paso para perder el control.",
+                "Menos mal que hoy no te iba a distraer, ¿eh?",
+                "¿Tan rápido te olvidaste del modo profesional, niña?",
+                "Interesante... el diagnóstico dice que necesitas cafeína y menos seriedad.",
+                "Dra. Demencia, está usted bajo arresto por exceso de nostalgia.",
+                "Diagnostico: Nivel de orgullo bajando, nivel de ganas de verme, subiendo.",
+            ];
+
+        var frasesAux = [];
+
+        var multipleClicksFrases = [
+                "Ese boton es adictivo pero no tanto como yo, ¿verdad?",
+                "Si sigues apretando el boton, voy a tener que cobrar consulta, enfermera.",
+                "¿Tanto me extrañas niña?, ntp, sigue trabajando, de recompensarte me encargo yo."
+            ];
+
+        var multipleClicksFrasesAux = [];
+
+
+        function generarFrase() {
+            count++;
+
+            const display = document.getElementById('display-phrase');
+            var randomFrase = "";
+
+            if(count % 3 == 0)
+            {
+                if(multipleClicksFrases.length == 0)
+                {
+                    const totalIt = multipleClicksFrasesAux.length;
+                    for(let i = 0; i < totalIt; i++)
+                    {
+                        const curr = multipleClicksFrasesAux.pop();
+                        multipleClicksFrases.push(curr);
+                    }
+                }
+                var index = Math.floor(Math.random() * multipleClicksFrases.length);
+                randomFrase = multipleClicksFrases[index];
+                multipleClicksFrases.splice(index, 1);
+                multipleClicksFrasesAux.push(randomFrase);
+            }
+            else
+            {
+                if(frases.length == 0)
+                {
+                    const totalIt = frasesAux.length;
+                    for(let i = 0; i < totalIt; i++)
+                    {
+                        const curr = frasesAux.pop();
+                        frases.push(curr);
+                    }
+                }
+
+                var index = Math.floor(Math.random() * frases.length);
+                randomFrase = frases[index];
+                frases.splice(index, 1);
+                frasesAux.push(randomFrase);
+            }
+            
+            // Animación simple de cambio
+            display.style.opacity = 0;
+            setTimeout(() => {
+                display.innerText = randomFrase;
+                display.style.opacity = 1;
+            }, 200);
+        }
+    </script>
+
+</body>
+</html>
